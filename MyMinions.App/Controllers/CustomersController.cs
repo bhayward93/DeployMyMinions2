@@ -23,7 +23,8 @@ namespace MyMinions.App.Controllers
                                    {
                                        Id = c.Id,
                                        FirstName = c.FirstName,
-                                       LastName = c.LastName
+                                       LastName = c.LastName,
+                                       JobCount = c.Jobs.Count
                                    })
                                    .AsEnumerable();
             return View(customers);

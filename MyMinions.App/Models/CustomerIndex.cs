@@ -13,5 +13,7 @@ namespace MyMinions.App.Models
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+        [DisplayName("Job Count")]
+        public int JobCount { get; set; }
     }
 }
