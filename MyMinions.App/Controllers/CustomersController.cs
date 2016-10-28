@@ -75,6 +75,31 @@ namespace MyMinions.App.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var customer = context.Customers
+                                  .Where(c => c.Id == id)
+                                  .Include(c => c.Jobs)
+                                  .Select(c => new Models.CustomerDetails
+                                  {
+                                      Id = c.Id,
+                                      FirstName = c.FirstName,
+                                      LastName = c.LastName,
+                                      Age = c.Age,
+                                      Reputation = c.Reputation
+                                  })
+                                  .FirstOrDefault();
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
