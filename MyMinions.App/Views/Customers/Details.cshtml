@@ -53,5 +53,6 @@
     </dl>
 
     @Html.Partial("Jobs", Model.Jobs)
+    <p>@Html.ActionLink("Add a new job", "AddJob", new { id = Model.Id })</p>
 
 </div>

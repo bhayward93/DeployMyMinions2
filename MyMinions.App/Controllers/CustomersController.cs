@@ -106,6 +106,50 @@ namespace MyMinions.App.Controllers
             return View(customer);
         }
 
+        public ActionResult AddJob(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.JobDescriptorId = new SelectList(context.JobDescriptors, "Id", "Descriptor");
+            var job = new Models.CustomerAddJob
+            {
+                CustomerId = id
+            };
+            return View(job);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddJob(Models.CustomerAddJob form)
+        {
+            //if (ModelState.IsValid)
+            {
+                var customer = context.Customers.Find(form.CustomerId);
+                if (customer == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var descriptor = context.JobDescriptors.Find(form.JobDescriptorId);
+                if (descriptor == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var job = new Model.Job
+                {
+                    Customer = customer,
+                    Descriptor = descriptor,
+                    StartDate = DateTime.Now
+                };
+                context.Jobs.Add(job);
+                context.SaveChanges();
+                return RedirectToAction("Details", new { id = form.CustomerId });
+            }
+            ViewBag.JobDescriptorId = new SelectList(context.JobDescriptors, "Id", "Descriptor");
+            return View(form);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
