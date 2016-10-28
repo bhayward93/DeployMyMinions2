@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MyMinions.App.Models.CustomerDetailsJob>
+
+<hr />
+<h4>Jobs</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descriptor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descriptor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+    </tr>
+}
+</table>

@@ -15,5 +15,6 @@ namespace MyMinions.App.Models
         public string LastName { get; set; }
         public int Age { get; set; }
         public string Reputation { get; set; }
+        public IEnumerable<CustomerDetailsJob> Jobs { get; set; }
     }
 }

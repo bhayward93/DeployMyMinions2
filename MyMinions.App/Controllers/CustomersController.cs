@@ -90,7 +90,13 @@ namespace MyMinions.App.Controllers
                                       FirstName = c.FirstName,
                                       LastName = c.LastName,
                                       Age = c.Age,
-                                      Reputation = c.Reputation
+                                      Reputation = c.Reputation,
+                                      Jobs = c.Jobs.Select(j => new Models.CustomerDetailsJob
+                                      {
+                                          Id = j.Id,
+                                          Descriptor = j.Descriptor.Descriptor,
+                                          StartDate = j.StartDate
+                                      })
                                   })
                                   .FirstOrDefault();
             if (customer == null)
